@@ -393,8 +393,16 @@ body.dark footer img { filter: invert(1) brightness(0.8); }
 .text-link:hover { border-bottom-color: var(--accent); }
 
 @media (max-width: 600px) {
+  .wrap { padding: 32px 20px 64px; }
   .site-nav { flex-direction: column; gap: 12px; }
   .contact-grid { grid-template-columns: 1fr; }
-  footer { flex-direction: column; }
+  footer { flex-direction: column; align-items: center; gap: 8px; text-align: center; }
   .cv-row { grid-template-columns: 80px 1fr; }
+  .home-intro { flex-direction: column-reverse; align-items: center; gap: 20px; }
+  .home-photo-wrap { width: 100%; align-items: center; }
+  .home-photo-placeholder { width: 120px; height: 120px; }
+  .home-name { font-size: 1.9rem; }
+  .home-bio { max-width: 100%; }
+  .section { margin-bottom: 40px; }
+  .page-title { font-size: 1.5rem; }
 }
