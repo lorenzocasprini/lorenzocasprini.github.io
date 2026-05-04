@@ -11,12 +11,13 @@
 
 <nav class="site-nav">
   <a href="index.html" class="site-nav-name">Lorenzo Casprini</a>
-    <div class="site-nav-links">
+  <div class="site-nav-links">
     <a href="research.html" class="active">Research</a>
     <a href="talks.html">Talks</a>
     <a href="teaching.html">Teaching</a>
     <a href="cv.html">CV</a>
     <a href="contact.html">Contact</a>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle theme">◐</button>
   </div>
 </nav>
 
@@ -59,36 +60,18 @@
 </footer>
 </div>
 
-<div id="tweaks-panel">
-  <div class="tweaks-title">Tweaks</div>
-  <div>
-    <span class="t-label">Theme</span>
-    <div class="t-btns">
-      <button class="t-btn" onclick="setTheme('light',this)">Light</button>
-      <button class="t-btn" onclick="setTheme('dark',this)">Dark</button>
-    </div>
-  </div>
-</div>
 <script>
-  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-    "theme": "light"
-  }/*EDITMODE-END*/;
-  function setTheme(t, btn) {
-    document.body.className = t === 'dark' ? 'dark' : '';
-    document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    localStorage.setItem('lc-theme', t);
-    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: t } }, '*');
-  }
-  const saved = localStorage.getItem('lc-theme') || TWEAK_DEFAULTS.theme;
-  const btns = document.querySelectorAll('.t-btn');
-  if (saved === 'dark') { document.body.className = 'dark'; btns[1].classList.add('active'); }
-  else { btns[0].classList.add('active'); }
-  window.addEventListener('message', e => {
-    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
-    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+  const saved = localStorage.getItem('lc-theme') || 'light';
+  if (saved === 'dark') document.body.classList.add('dark');
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('theme-toggle');
+    btn.textContent = '◐';
+    btn.addEventListener('click', () => {
+      const dark = document.body.classList.toggle('dark');
+      btn.textContent = '◐';
+      localStorage.setItem('lc-theme', dark ? 'dark' : 'light');
+    });
   });
-  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
 </script>
 </body>
 </html>
