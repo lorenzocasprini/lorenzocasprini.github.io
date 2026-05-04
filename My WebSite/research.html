@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Research — Lorenzo Casprini</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-name">Lorenzo Casprini</a>
+    <div class="site-nav-links">
+    <a href="research.html" class="active">Research</a>
+    <a href="talks.html">Talks</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="section">
+  <div class="section-title">Working Papers</div>
+  <ul class="paper-list">
+    <li class="paper-item">
+      <div class="paper-title">Climate Migration in Europe? Evidence from Drought Exposure and Internal Migration in Italy <span class="paper-status">Under Review</span></div>
+      <div class="paper-authors">Emre Karabulutoğlu, Lorenzo Casprini, Raya Muttarak · 2025</div>
+      <div class="paper-links">
+        <a href="https://www.researchsquare.com/article/rs-8487713/v1" target="_blank">Draft</a>
+        <a href="#" class="abstract-toggle" onclick="this.closest('.paper-item').querySelector('.paper-abstract').classList.toggle('open'); this.textContent = this.closest('.paper-item').querySelector('.paper-abstract').classList.contains('open') ? 'Abstract ↑' : 'Abstract ↓'; return false;">Abstract ↓</a>
+      </div>
+      <div class="paper-abstract">
+        Using annual bilateral migration flow data from ISTAT for 104 Italian provinces (2002–2023) combined with drought severity indices (SPEI and PDSI), we examine how worsening climatic conditions affect internal migration within Italy. We find robust evidence that drought exposure drives inter-provincial migration flows, even in a high-income country with greater adaptive capacity. Drought-induced out-migration is strongest in middle-income provinces, and foreign citizens display a markedly higher propensity to migrate than Italian citizens in response to adverse climatic conditions.
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div class="section">
+  <div class="section-title">Work in Progress</div>
+  <ul class="paper-list">
+    <li class="paper-item">
+      <div class="paper-title">Water and Migration: a critical nexus</div>
+      <div class="paper-authors">Lorenzo Casprini · 2025</div>
+      <div class="paper-links">
+        <span class="paper-coming-soon">Draft coming soon</span>
+        <a href="#" class="abstract-toggle" onclick="this.closest('.paper-item').querySelector('.paper-abstract').classList.toggle('open'); this.textContent = this.closest('.paper-item').querySelector('.paper-abstract').classList.contains('open') ? 'Abstract ↑' : 'Abstract ↓'; return false;">Abstract ↓</a>
+      </div>
+      <div class="paper-abstract"></div>
+    </li>
+  </ul>
+</div>
+
+<footer>
+  <span>© 2025 Lorenzo Casprini</span>
+  <img src="uploads/logo_unibo.png" alt="Università di Bologna">
+  <span>Università di Bologna · DSE</span>
+</footer>
+</div>
+
+<div id="tweaks-panel">
+  <div class="tweaks-title">Tweaks</div>
+  <div>
+    <span class="t-label">Theme</span>
+    <div class="t-btns">
+      <button class="t-btn" onclick="setTheme('light',this)">Light</button>
+      <button class="t-btn" onclick="setTheme('dark',this)">Dark</button>
+    </div>
+  </div>
+</div>
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "light"
+  }/*EDITMODE-END*/;
+  function setTheme(t, btn) {
+    document.body.className = t === 'dark' ? 'dark' : '';
+    document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    localStorage.setItem('lc-theme', t);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: t } }, '*');
+  }
+  const saved = localStorage.getItem('lc-theme') || TWEAK_DEFAULTS.theme;
+  const btns = document.querySelectorAll('.t-btn');
+  if (saved === 'dark') { document.body.className = 'dark'; btns[1].classList.add('active'); }
+  else { btns[0].classList.add('active'); }
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+</body>
+</html>

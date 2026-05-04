@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CV — Lorenzo Casprini</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background: var(--bg); margin: 0; }
+  body.dark { background: var(--bg); }
+
+  .cv-topbar {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 16px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .cv-topbar-left {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: #888;
+  }
+  .cv-topbar-left a { color: #888; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+  .cv-topbar-left a:hover { border-bottom-color: #888; }
+  .cv-topbar-right { display: flex; gap: 10px; align-items: center; }
+  .btn-dl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    padding: 7px 16px;
+    background: #2a52a0;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s;
+  }
+  .btn-dl:hover { opacity: 0.85; }
+
+  .cv-sitenav {
+    max-width: 860px; margin: 0 auto;
+    padding: 0 16px 14px;
+    display: flex; gap: 20px; flex-wrap: wrap;
+  }
+  .cv-sitenav a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.05em;
+    color: #888; text-decoration: none; transition: color 0.2s;
+  }
+  .cv-sitenav a:hover, .cv-sitenav a.active { color: #2a52a0; }
+  body.dark .cv-sitenav a:hover, body.dark .cv-sitenav a.active { color: #7fa8e8; }
+
+  .cv-viewer {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 32px 48px;
+  }
+  #cv-pdf {
+    display: block;
+    width: 100%;
+    height: calc(100vh - 120px);
+    min-height: 700px;
+    border: none;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.22);
+  }
+  #pdf-container { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  #pdf-container canvas { display: block; box-shadow: 0 4px 24px rgba(0,0,0,0.22); max-width: 100%; }
+  #pdf-loading { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: #888; text-align: center; padding: 60px 0; }
+</style>
+</head>
+<body>
+
+<div class="wrap" style="padding-bottom: 0;">
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-name">Lorenzo Casprini</a>
+  <div class="site-nav-links">
+    <a href="research.html">Research</a>
+    <a href="talks.html">Talks</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="cv.html" class="active">CV</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+</div>
+
+<div class="cv-viewer">
+  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+    <a href="CV_Casprini.pdf" download class="btn-dl">↓ Download CV</a>
+  </div>
+  <div id="pdf-loading">Loading CV…</div>
+  <div id="pdf-container"></div>
+</div>
+
+<script src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+<script>
+  const t = localStorage.getItem('lc-theme') || 'light';
+  if (t === 'dark') document.body.classList.add('dark');
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+  const container = document.getElementById('pdf-container');
+  const loading = document.getElementById('pdf-loading');
+
+  async function renderPDF() {
+    try {
+      const pdf = await pdfjsLib.getDocument('CV_Casprini.pdf').promise;
+      loading.style.display = 'none';
+      const viewerWidth = container.parentElement.clientWidth - 32;
+      const maxWidth = Math.min(viewerWidth, 828);
+      const devicePixelRatio = window.devicePixelRatio || 2;
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        const page = await pdf.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 1 });
+        const scale = (maxWidth / viewport.width) * devicePixelRatio;
+        const scaled = page.getViewport({ scale });
+        const canvas = document.createElement('canvas');
+        canvas.width = scaled.width;
+        canvas.height = scaled.height;
+        canvas.style.width = (scaled.width / devicePixelRatio) + 'px';
+        canvas.style.height = (scaled.height / devicePixelRatio) + 'px';
+        container.appendChild(canvas);
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: scaled }).promise;
+      }
+    } catch(e) {
+      loading.textContent = 'Could not load PDF. ' + e.message;
+    }
+  }
+  renderPDF();
+</script>
+</body>
+</html>

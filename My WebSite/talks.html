@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Talks — Lorenzo Casprini</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-name">Lorenzo Casprini</a>
+  <div class="site-nav-links">
+    <a href="research.html">Research</a>
+    <a href="talks.html" class="active">Talks</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="section">
+  <div class="section-title">Conferences</div>
+  <div class="talk-row">
+    <span class="talk-year">Feb 2026</span>
+    <div>
+      <div class="talk-name">1st VWMM Workshop</div>
+      <div class="talk-paper"><em>Climate Migration in Europe? Evidence from Drought Exposure and Internal Migration in Italy</em></div>
+      <div class="talk-event">Austrian Academy of Sciences, Vienna, Austria</div>
+    </div>
+  </div>
+  <div class="talk-row">
+    <span class="talk-year">Jan 2026</span>
+    <div>
+      <div class="talk-name">14th Annual IAERE Conference</div>
+      <div class="talk-paper"><em>Water and Migration: a critical nexus</em></div>
+      <div class="talk-event">University of Trento, Trento, Italy</div>
+    </div>
+  </div>
+  <div class="talk-row">
+    <span class="talk-year">Nov 2025</span>
+    <div>
+      <div class="talk-name">7th Mahidol Migration Center (MMC) Conference</div>
+      <div class="talk-paper"><em>Climate Migration in Europe? Evidence from Drought Exposure and Internal Migration in Italy</em></div>
+      <div class="talk-event">Mahidol University, Bangkok, Thailand</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2025 Lorenzo Casprini</span>
+  <img src="uploads/logo_unibo.png" alt="Università di Bologna">
+  <span>Università di Bologna · DSE</span>
+</footer>
+</div>
+
+<div id="tweaks-panel">
+  <div class="tweaks-title">Tweaks</div>
+  <div>
+    <span class="t-label">Theme</span>
+    <div class="t-btns">
+      <button class="t-btn" onclick="setTheme('light',this)">Light</button>
+      <button class="t-btn" onclick="setTheme('dark',this)">Dark</button>
+    </div>
+  </div>
+</div>
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "light"
+  }/*EDITMODE-END*/;
+  function setTheme(t, btn) {
+    document.body.className = t === 'dark' ? 'dark' : '';
+    document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    localStorage.setItem('lc-theme', t);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: t } }, '*');
+  }
+  const saved = localStorage.getItem('lc-theme') || TWEAK_DEFAULTS.theme;
+  const btns = document.querySelectorAll('.t-btn');
+  if (saved === 'dark') { document.body.className = 'dark'; btns[1].classList.add('active'); }
+  else { btns[0].classList.add('active'); }
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+</body>
+</html>

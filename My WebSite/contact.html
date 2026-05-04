@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — Lorenzo Casprini</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+<nav class="site-nav">
+  <a href="index.html" class="site-nav-name">Lorenzo Casprini</a>
+    <div class="site-nav-links">
+    <a href="research.html">Research</a>
+    <a href="talks.html">Talks</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="cv.html">CV</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+</nav>
+
+<div class="section">
+  <div class="contact-grid">
+    <div class="contact-block">
+      <span class="contact-label">Profiles</span>
+      <a href="https://scholar.google.com/citations?user=6j4kWWAAAAAJ&hl=it&oi=sra" target="_blank">Google Scholar</a><br>
+      <a href="https://orcid.org/0009-0005-9377-5941" target="_blank">ORCID</a><br>
+      <a href="https://www.linkedin.com/in/lorenzocasprini" target="_blank">LinkedIn</a>
+    </div>
+    <div class="contact-block">
+      <span class="contact-label">Office</span>
+      Department of Economics<br>
+      Università di Bologna<br>
+      Piazza Scaravilli 2, Bologna
+    </div>
+    <div class="contact-block contact-email">
+      <span class="contact-label">Email</span>
+      <a href="mailto:lorenzo.casprini@unibo.it">lorenzo.casprini@unibo.it</a>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <span>© 2025 Lorenzo Casprini</span>
+  <span>Università di Bologna · Economics</span>
+</footer>
+</div>
+
+<div id="tweaks-panel">
+  <div class="tweaks-title">Tweaks</div>
+  <div>
+    <span class="t-label">Theme</span>
+    <div class="t-btns">
+      <button class="t-btn" onclick="setTheme('light',this)">Light</button>
+      <button class="t-btn" onclick="setTheme('dark',this)">Dark</button>
+    </div>
+  </div>
+</div>
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "light"
+  }/*EDITMODE-END*/;
+  function setTheme(t, btn) {
+    document.body.className = t === 'dark' ? 'dark' : '';
+    document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    localStorage.setItem('lc-theme', t);
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: t } }, '*');
+  }
+  const saved = localStorage.getItem('lc-theme') || TWEAK_DEFAULTS.theme;
+  const btns = document.querySelectorAll('.t-btn');
+  if (saved === 'dark') { document.body.className = 'dark'; btns[1].classList.add('active'); }
+  else { btns[0].classList.add('active'); }
+  window.addEventListener('message', e => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweaks-panel').classList.add('open');
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+</body>
+</html>
