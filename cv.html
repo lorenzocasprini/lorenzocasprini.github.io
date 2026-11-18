@@ -58,9 +58,9 @@
   body.dark .cv-sitenav a:hover, body.dark .cv-sitenav a.active { color: #7fa8e8; }
 
   .cv-viewer {
-    max-width: var(--max);
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 32px 48px;
+    padding: 0 24px 48px;
   }
   #cv-pdf {
     display: block;
@@ -122,19 +122,19 @@
     try {
       const pdf = await pdfjsLib.getDocument('CV_Casprini.pdf').promise;
       loading.style.display = 'none';
-      const viewerWidth = container.parentElement.clientWidth - 32;
-      const maxWidth = Math.min(viewerWidth, 828);
-      const devicePixelRatio = window.devicePixelRatio || 2;
+      const viewerWidth = container.parentElement.clientWidth;
+      const cssWidth = Math.min(viewerWidth, 900);
+      const dpr = (window.devicePixelRatio || 1) * 2; // supersample for sharper text
       for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
         const page = await pdf.getPage(pageNum);
         const viewport = page.getViewport({ scale: 1 });
-        const scale = (maxWidth / viewport.width) * devicePixelRatio;
+        const scale = (cssWidth / viewport.width) * dpr;
         const scaled = page.getViewport({ scale });
         const canvas = document.createElement('canvas');
         canvas.width = scaled.width;
         canvas.height = scaled.height;
-        canvas.style.width = (scaled.width / devicePixelRatio) + 'px';
-        canvas.style.height = (scaled.height / devicePixelRatio) + 'px';
+        canvas.style.width = cssWidth + 'px';
+        canvas.style.height = (scaled.height / dpr) + 'px';
         container.appendChild(canvas);
         await page.render({ canvasContext: canvas.getContext('2d'), viewport: scaled }).promise;
       }

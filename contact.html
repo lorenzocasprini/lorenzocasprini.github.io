@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Contact — Lorenzo Casprini</title>
 <link rel="stylesheet" href="style.css">
+<style>
+.contact-row{display:grid;grid-template-columns:82px 1fr;gap:22px;padding:18px 0;border-bottom:1px solid var(--rule-soft);align-items:start}
+.contact-row:first-child{padding-top:4px}
+.contact-primary{font-family:var(--font-serif);font-size:0.98rem;font-weight:400;color:var(--fg);line-height:1.4}
+.contact-secondary{font-family:var(--font-sans);font-size:0.82rem;color:var(--fg2);line-height:1.6}
+.contact-tag{font-family:var(--font-mono);color:var(--fg2);font-size:0.78rem;padding-top:3px;justify-self:start;text-align:left;white-space:nowrap}
+.contact-links{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--font-sans);font-size:0.82rem}
+.contact-primary a{font:inherit;color:inherit}
+.contact-primary a,.contact-links a{color:var(--fg);border-bottom:1px solid var(--rule);padding:0;transition:background 0.15s,border-color 0.15s}
+.contact-primary a:hover,.contact-links a:hover{background:var(--highlight);color:#000;border-bottom-color:transparent}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -22,30 +33,30 @@
 </nav>
 
 <div class="section">
-  <div class="contact-grid">
-    <div class="contact-block">
-      <span class="contact-label">Profiles</span>
-      <a href="https://scholar.google.com/citations?user=6j4kWWAAAAAJ&hl=it&oi=sra" target="_blank">Google Scholar</a><br>
-      <a href="https://orcid.org/0009-0005-9377-5941" target="_blank">ORCID</a><br>
+  <div class="section-title">Contact</div>
+  <div class="contact-row">
+    <span class="contact-tag">Email</span>
+    <div class="contact-primary"><a href="mailto:lorenzo.casprini@unibo.it">lorenzo.casprini@unibo.it</a></div>
+  </div>
+  <div class="contact-row">
+    <span class="contact-tag">Office</span>
+    <div>
+      <div class="contact-primary">Department of Economics, Università di Bologna</div>
+      <div class="contact-secondary">Piazza Scaravilli 2, Bologna</div>
+    </div>
+  </div>
+  <div class="contact-row">
+    <span class="contact-tag">Profiles</span>
+    <div class="contact-links">
+      <a href="https://scholar.google.com/citations?user=6j4kWWAAAAAJ&hl=it&oi=sra" target="_blank">Google Scholar</a>
+      <a href="https://orcid.org/0009-0005-9377-5941" target="_blank">ORCID</a>
       <a href="https://www.linkedin.com/in/lorenzocasprini" target="_blank">LinkedIn</a>
-    </div>
-    <div class="contact-block">
-      <span class="contact-label">Office</span>
-      Department of Economics<br>
-      Università di Bologna<br>
-      Piazza Scaravilli 2, Bologna
-    </div>
-    <div class="contact-block contact-email">
-      <span class="contact-label">Email</span>
-      <a href="mailto:lorenzo.casprini@unibo.it">lorenzo.casprini@unibo.it</a>
     </div>
   </div>
 </div>
 
 
-<footer>
-  <span>© 2025 Lorenzo Casprini</span>
-  <img src="uploads/logo_unibo.png" alt="Università di Bologna">
+<footer>  <img src="uploads/logo_unibo.png" alt="Università di Bologna">
   <span>Università di Bologna · DSE</span>
 </footer>
 </div>
