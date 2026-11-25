@@ -18,12 +18,16 @@
 .paper-links a{font-family:var(--font-sans);font-size:0.82rem;color:var(--fg2);font-weight:400;padding:0 2px;border:0;border-bottom:1px solid var(--rule);border-radius:0;white-space:nowrap;transition:background 0.15s,color 0.15s,border-color 0.15s}
 .paper-links a:hover{background:var(--highlight);color:#000;border-bottom-color:transparent}
 .paper-coming-soon{font-family:var(--font-sans);font-size:0.82rem;color:var(--fg3);padding:0;border:0;border-radius:0;font-style:italic;white-space:nowrap}
-.paper-abstract{font-family:var(--font-serif);font-size:0.96rem;color:var(--fg2);line-height:1.6}
+.paper-abstract{font-family:var(--font-serif);font-size:0.82rem;color:var(--fg2);line-height:1.6}
 .paper-abstract{margin-right:-96px;max-width:none}
 .paper-abstract.open{max-height:2000px}
 .paper-pub{font-family:var(--font-sans);font-size:0.82rem;color:var(--fg2);font-weight:400;margin-top:0;line-height:1.5}
 .paper-journal{display:inline-block;margin-left:-6px;margin-right:-6px;font-family:inherit;font-style:italic;font-size:inherit;font-weight:400;background-color:transparent;color:var(--fg);padding:1px 6px;border-radius:2px;transition:background-color 0.15s,color 0.15s}
 .paper-journal:hover{background-color:var(--highlight);color:#000}
+.jmp-title{color:#b42318;border-bottom:2px solid #b42318}
+.jmp-badge{display:inline-block;font-family:var(--font-sans);font-size:0.64rem;font-weight:600;letter-spacing:0.08em;color:#fff;background:#b42318;padding:1px 6px;border-radius:2px;margin-left:8px;vertical-align:2px}
+body.dark .jmp-title{color:#f97066;border-bottom-color:#f97066}
+body.dark .jmp-badge{background:#f97066;color:#111}
 </style>
 </head>
 <body>
@@ -40,6 +44,21 @@
     <button class="theme-toggle" id="theme-toggle" title="Toggle theme">◐</button>
   </div>
 </nav>
+
+<div class="section" id="jmp">
+  <div class="section-title jmp-title">Job Market Paper</div>
+  <ul class="paper-list">
+    <li class="paper-item">
+      <div class="paper-body">
+      <div class="paper-title">Depleting Water, Displacing Populations</div>
+      <div class="paper-links">
+        <span class="paper-coming-soon">Draft coming soon</span>
+      </div>
+      </div>
+      <span class="paper-year">2025</span>
+    </li>
+  </ul>
+</div>
 
 <div class="section">
   <div class="section-title">Publications</div>
@@ -65,17 +84,6 @@
 <div class="section">
   <div class="section-title">Work in Progress</div>
   <ul class="paper-list">
-    <li class="paper-item">
-      <div class="paper-body">
-      <div class="paper-title">Depleting Water, Displacing Populations</div>
-      <div class="paper-links">
-        <span class="paper-coming-soon">Draft coming soon</span>
-        <a href="#" class="abstract-toggle" onclick="this.closest('.paper-item').querySelector('.paper-abstract').classList.toggle('open'); this.textContent = this.closest('.paper-item').querySelector('.paper-abstract').classList.contains('open') ? 'Abstract ↑' : 'Abstract ↓'; return false;">Abstract ↓</a>
-      </div>
-      <div class="paper-abstract"></div>
-      </div>
-      <span class="paper-year">2025</span>
-    </li>
     <li class="paper-item">
       <div class="paper-body">
       <div class="paper-title">Water, Agriculture, and Violence: Grid-Level Responses of Non-State Conflict</div>
